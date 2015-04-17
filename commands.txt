@@ -1,0 +1,23 @@
+
+vagrant up
+vagrant reload --provision
+
+vagrant plugin install vagrant-vbguest
+
+cvs2git --fallback-encoding=utf8 --blobfile=blob.dat --dumpfile=dump.dat --username=cvs2git /cvs-repo/Web_Bootstrap
+
+
+ssh config: 
+Host trusty
+        HostName 127.0.0.1
+        Port 2222
+        User vagrant
+        IdentityFile ~/d/vagrant-cvs/.vagrant/machines/default/virtualbox/private_key
+
+Login with: ssh trusty (in cygwin)
+
+
+
+Compare two repo's
+
+diff -rq project.git project.cvs
