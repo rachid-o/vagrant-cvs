@@ -39,11 +39,11 @@ fi
 diff -rq --exclude=".git" --exclude="CVS" $PROJECT_GIT $PROJECT_CVS
 RESULT=$?
 if [ $RESULT -eq 0 ]; then
-  echo "Git repo is equal to the CVS repo \o/"
+  echo "Git repo is equal to the CVS repo! \o/"
 else
   echo "Differences between repo's!"
   echo "For detailed differences do: "
   echo "diff -r --exclude='.git' --exclude='CVS' $PROJECT_GIT $PROJECT_CVS"
 fi
 
-echo "   cleanup with: rm -r $PROJECT $PROJECT_CVS $PROJECT_GIT"
+echo "   cleanup with: rm -r *.dat $PROJECT $PROJECT_CVS $PROJECT_GIT"
