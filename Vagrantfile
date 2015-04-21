@@ -9,6 +9,11 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
 
+  #config.vm.provider "virtualbox" do |vb|
+  #  vb.memory = "1024" 
+  #  vb.cpus = "2"
+  #end
+
   ##config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.provision "file", source: "homedir/.bash_aliases", destination: ".bash_aliases"
   config.vm.provision "file", source: "homedir/.vimrc", destination: ".vimrc"
