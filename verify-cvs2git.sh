@@ -60,3 +60,4 @@ else
 fi
 
 echo -e "To cleanup perform: \nrm -r $PROJECT $PROJECT_CVS $PROJECT_GIT *.dat cvs2svn-tmp"
+exit $RESULT;

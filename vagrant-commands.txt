@@ -5,8 +5,8 @@ vagrant ssh
 vagrant plugin install vagrant-vbguest
 
 vagrant reload --provision
-vagrant --provision-with shell
-
+vagrant provision --provision-with shell
+vagrant provision --provision-with file
 
 ssh config: 
 Host trusty

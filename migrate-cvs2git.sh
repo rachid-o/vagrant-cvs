@@ -32,7 +32,7 @@ cd $PROJECT.git.bare
 git init --bare
 
 echo "Import the data into Git repo"
-time cat ../blob-$PROJECT.dat ../dump-$PROJECT.dat | git fast-import  >> $LOGFILE
+time cat ../blob-$PROJECT.dat ../dump-$PROJECT.dat | git fast-import >> $LOGFILE 2>&1
 
 echo "To cleanup tmp files do: rm blob-$PROJECT.dat dump-$PROJECT.dat"
 echo "Done migrating to Git. You should verify the outcome!"
