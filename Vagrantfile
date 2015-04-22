@@ -17,8 +17,8 @@ Vagrant.configure(2) do |config|
   ##config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.provision "file", source: "homedir/.bash_aliases", destination: ".bash_aliases"
   config.vm.provision "file", source: "homedir/.vimrc", destination: ".vimrc"
-  config.vm.provision "file", source: "homedir/migrate-cvs2git.sh", destination: "migrate-cvs2git.sh"
-  config.vm.provision "file", source: "homedir/verify-cvs2git.sh", destination: "verify-cvs2git.sh"
+  config.vm.provision "file", source: "migrate-cvs2git.sh", destination: "migrate-cvs2git.sh"
+  config.vm.provision "file", source: "verify-cvs2git.sh", destination: "verify-cvs2git.sh"
 
   ## Mount the CVS repo as read only 
   config.vm.synced_folder "../cvs-repo/", "/cvs-repo", create: true, owner: "root"
