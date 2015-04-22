@@ -20,7 +20,16 @@ Perform `vagrant ssh` to know how to get into the virtual machine.
 
 # Performing the migration
 Create a directory, cd in it and perform: 
-`~/migrate-cvs2git.sh PROJECTNAME`
+```
+~/migrate-cvs2git.sh MODULENAME
+```
 
 When no errors occur, do a sanity check with: 
-`~/verify-cvs2git.sh PROJECTNAME`
+```
+~/verify-cvs2git.sh MODULENAME
+```
+
+When you want to migrate only a sub directory of a CVS module do:
+```
+~/migrate-cvs2git.sh SUB_DIR MODULENAME
+```

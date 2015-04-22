@@ -5,18 +5,25 @@
 
 [ "$1" == "" ] && echo -e "Usage: verify [PROJECTNAME] \n[PROJECTNAME] is the name of the module in CVS. \n\nThis script verifies the outcome of migrate-cvs2git.sh so assumes there is a Git repo in the dir PROJECTNAME.git.bare" &&  exit;
 PROJECT=$1
+MODULE=$2	# Only specified when migrating subdir of a module. Otherwise PROJECT is a module
 PROJECT_CVS=$PROJECT.cvs.diff
 PROJECT_GIT=$PROJECT.git.diff
 export CVSROOT=~/cvs-repo2
-
 ## Copy CVS repo to local path because due to permissions we can not checkout directly
 #if [ ! -d "$CVSROOT/$PROJECT" ]; then
 #	cp -r /cvs-repo/$PROJECT $CVSROOT/
 #fi
 
 if [ ! -d "$PROJECT" ]; then
-	echo Checking out $PROJECT from cvs
-	cvs co $PROJECT  &> /dev/null 
+	if [ "$MODULE" ]; then
+		echo "Checking out $MODULE/$PROJECT from CVS"
+		cvs co $MODULE/$PROJECT  &> /dev/null 
+		mv $MODULE/$PROJECT .
+		rm -r $MODULE
+	else
+		echo "Checking out $PROJECT from CVS"
+		cvs co $PROJECT &> /dev/null 
+	fi
 fi
 
 if [ ! -d "$PROJECT_CVS" ]; then
@@ -35,7 +42,6 @@ if [ ! -d "$PROJECT_GIT" ]; then
 fi
  
 ## Compare
- 
 
 #IGNORE_PARAMS=" --ignore-matching-lines=' \* @version.*\$Revision' --ignore-matching-lines='\*.*\$Id' "
 #echo "IGNORE_PARAMS: $IGNORE_PARAMS"
@@ -53,4 +59,4 @@ else
   echo "diff -r --exclude='.git' --ignore-matching-lines=\" * @version.*\\$\Revision\" --ignore-matching-lines=\"* \\$\Id\" $PROJECT_GIT $PROJECT_CVS"
 fi
 
-echo -e "To cleanup perform: \nrm -r *.dat $PROJECT $PROJECT_CVS $PROJECT_GIT"
+echo -e "To cleanup perform: \nrm -r $PROJECT $PROJECT_CVS $PROJECT_GIT *.dat cvs2svn-tmp"
