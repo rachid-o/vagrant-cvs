@@ -17,7 +17,7 @@ export CVSROOT=~/cvs-repo2
 if [ ! -d "$PROJECT" ]; then
 	if [ "$MODULE" ]; then
 		echo "Checking out $MODULE/$PROJECT from CVS"
-		cvs co $MODULE/$PROJECT  &> /dev/null 
+		cvs co $MODULE/$PROJECT &> /dev/null 
 		mv $MODULE/$PROJECT .
 		rm -r $MODULE
 	else
@@ -30,9 +30,9 @@ if [ ! -d "$PROJECT_CVS" ]; then
 	echo "Copying CVS project and remove files which we ignore during comparison"
 	cp -r $PROJECT $PROJECT_CVS
 	## Delete files we can ignore during comparison
-	find $PROJECT_CVS -type d -name CVS -exec rm -r {} \; &> /dev/null
+	find $PROJECT_CVS -type d -mindepth 1 -name CVS -exec rm -r {} \; &> /dev/null
 	## Git does not support empty directories
-	find $PROJECT_CVS -type d -empty -delete &> /dev/null 
+	find $PROJECT_CVS -type d -mindepth 1 -empty -delete &> /dev/null 
 fi
 
 ## Clone bare git project
