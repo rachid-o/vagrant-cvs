@@ -12,10 +12,8 @@ echo "Output will be logged to: $LOGFILE"
 
 PROJECT_PATH=$CVSROOT/$PROJECT
 if [ "$MODULE" ]; then
-	echo "Migrating the subdir $MODULE of $PROJECT"
+	#echo "Migrating the subdir $MODULE of $PROJECT"
 	PROJECT_PATH=$CVSROOT/$MODULE/$PROJECT	
-else 
-	echo "Just $PROJECT"
 fi
 
 echo "Migrating $PROJECT_PATH"
