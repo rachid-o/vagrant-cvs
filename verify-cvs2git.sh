@@ -1,14 +1,13 @@
 #!/bin/bash
-## ========================
-## ==  Verify migration  ==
-## ========================
+
+CVSROOT=/cvs-repo
+#CVSROOT=~/cvs-repo2
 
 [ "$1" == "" ] && echo -e "Usage: verify [PROJECTNAME] \n[PROJECTNAME] is the name of the module in CVS. \n\nThis script verifies the outcome of migrate-cvs2git.sh so assumes there is a Git repo in the dir PROJECTNAME.git.bare" &&  exit;
 PROJECT=$1
 MODULE=$2	# Only specified when migrating subdir of a module. Otherwise PROJECT is a module
 PROJECT_CVS=$PROJECT.cvs.diff
 PROJECT_GIT=$PROJECT.git.diff
-export CVSROOT=~/cvs-repo2
 ## Copy CVS repo to local path because due to permissions we can not checkout directly
 #if [ ! -d "$CVSROOT/$PROJECT" ]; then
 #	cp -r /cvs-repo/$PROJECT $CVSROOT/

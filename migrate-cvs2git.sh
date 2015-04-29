@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CVSROOT=/cvs-repo
+#CVSROOT=~/cvs-repo2
+
 [ "$1" == "" ] && echo -e "Usage: migrate [PROJECTNAME] \n[PROJECTNAME] is the name of the module in CVS" &&  exit;
 PROJECT=$1
 MODULE=$2	# Only specified when migrating subdir of a module. Otherwise PROJECT is a module
@@ -7,8 +10,6 @@ LOGFILE=$PROJECT-cvs2git.log
 
 echo "Output will be logged to: $LOGFILE"
 
-#CVSROOT=/cvs-repo
-CVSROOT=~/cvs-repo2
 PROJECT_PATH=$CVSROOT/$PROJECT
 if [ "$MODULE" ]; then
 	echo "Migrating the subdir $MODULE of $PROJECT"
