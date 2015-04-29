@@ -29,7 +29,14 @@ When no errors occur, do a sanity check with:
 ~/verify-cvs2git.sh MODULENAME
 ```
 
+
+## Migrating sub directory of a module
 When you want to migrate only a sub directory of a CVS module do:
 ```
 ~/migrate-cvs2git.sh SUB_DIR MODULENAME
+```
+
+Verify it with:
+```
+~/verify-cvs2git.sh MODULENAME/SUB_DIR
 ```

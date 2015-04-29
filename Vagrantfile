@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
   #config.vm.provision "file", source: "verify-cvs2git.sh", destination: "verify-cvs2git.sh"
 
   ## Mount the CVS repo as read only 
-  config.vm.synced_folder "../cvs-repo/", "/cvs-repo", create: true, owner: "root"
+  #config.vm.synced_folder "../cvs-repo/", "/cvs-repo", create: true, owner: "root"
   #,  :mount_options => ["dmode=777","fmode=777"]
 
   ## Mount shared folder as writable
