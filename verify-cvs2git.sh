@@ -1,27 +1,23 @@
 #!/bin/bash
 
-CVSROOT=/cvs-repo
-#CVSROOT=~/cvs-repo2
+export CVSROOT=/cvs-repo
+#export CVSROOT=~/cvs-repo2
 
 [ "$1" == "" ] && echo -e "Usage: verify [PROJECTNAME] \n[PROJECTNAME] is the name of the module in CVS. \n\nThis script verifies the outcome of migrate-cvs2git.sh so assumes there is a Git repo in the dir PROJECTNAME.git.bare" &&  exit;
 PROJECT=$1
 MODULE=$2	# Only specified when migrating subdir of a module. Otherwise PROJECT is a module
 PROJECT_CVS=$PROJECT.cvs.diff
 PROJECT_GIT=$PROJECT.git.diff
-## Copy CVS repo to local path because due to permissions we can not checkout directly
-#if [ ! -d "$CVSROOT/$PROJECT" ]; then
-#	cp -r /cvs-repo/$PROJECT $CVSROOT/
-#fi
 
 if [ ! -d "$PROJECT" ]; then
 	if [ "$MODULE" ]; then
 		echo "Checking out $MODULE/$PROJECT from CVS"
-		cvs co $MODULE/$PROJECT &> /dev/null 
+		cvs -Q co $MODULE/$PROJECT
 		mv $MODULE/$PROJECT .
 		rm -r $MODULE
 	else
 		echo "Checking out $PROJECT from CVS"
-		cvs co $PROJECT &> /dev/null 
+		cvs -Q co $PROJECT
 	fi
 fi
 
@@ -37,15 +33,11 @@ fi
 ## Clone bare git project
 if [ ! -d "$PROJECT_GIT" ]; then
 	echo "Cloning bare Git project"
-	git clone $PROJECT.git.bare $PROJECT_GIT &> /dev/null 
+	git clone $PROJECT.git.bare $PROJECT_GIT
 fi
  
-## Compare
 
-#IGNORE_PARAMS=" --ignore-matching-lines=' \* @version.*\$Revision' --ignore-matching-lines='\*.*\$Id' "
-#echo "IGNORE_PARAMS: $IGNORE_PARAMS"
-
-# show files only
+##  -rq shows only the files which differ, -r shows diff inside files as well
 diff -rq --exclude=".git" \
 	--ignore-matching-lines=" * @version.*\\$\Revision" --ignore-matching-lines="* \\$\Id" \
 	$PROJECT_GIT $PROJECT_CVS
